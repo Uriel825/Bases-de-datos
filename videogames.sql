@@ -1,15 +1,13 @@
-﻿CREATE DATABASE  IF NOT EXISTS `videogames` /*!40100 DEFAULT CHARACTER SET latin1 */;
-USE `videogames`;
--- MySQL dump 10.13  Distrib 5.6.17, for Win32 (x86)
+-- MySQL dump 10.13  Distrib 8.0.18, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: videogames
+-- Host: localhost    Database: videogames
 -- ------------------------------------------------------
--- Server version	5.6.43-log
+-- Server version	8.0.18
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!50503 SET NAMES utf8 */;
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
@@ -23,7 +21,7 @@ USE `videogames`;
 
 DROP TABLE IF EXISTS `cliente`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cliente` (
   `idCliente` int(11) NOT NULL AUTO_INCREMENT,
   `idLogin` int(11) NOT NULL,
@@ -33,7 +31,7 @@ CREATE TABLE `cliente` (
   PRIMARY KEY (`idCliente`),
   UNIQUE KEY `idCliente_UNIQUE` (`idCliente`),
   KEY `fk_Cliente_login1_idx` (`idLogin`),
-  CONSTRAINT `fk_Cliente_login1` FOREIGN KEY (`idLogin`) REFERENCES `loginencri` (`idLogin`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_Cliente_login1` FOREIGN KEY (`idLogin`) REFERENCES `loginencri` (`idLogin`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -52,7 +50,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `codigos_postales`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `codigos_postales` (
   `cp` bigint(20) NOT NULL,
   `colonia` mediumtext NOT NULL,
@@ -81,7 +79,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `direccion`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `direccion` (
   `idDireccion` int(11) NOT NULL AUTO_INCREMENT,
   `idCliente` int(11) NOT NULL,
@@ -94,8 +92,8 @@ CREATE TABLE `direccion` (
   UNIQUE KEY `idDireccion_UNIQUE` (`idDireccion`),
   KEY `fk_Direccion_Cliente1_idx` (`idCliente`),
   KEY `fk_Direccion_codigos_postales1_idx` (`cp`),
-  CONSTRAINT `fk_Direccion_Cliente1` FOREIGN KEY (`idCliente`) REFERENCES `cliente` (`idCliente`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Direccion_codigos_postales1` FOREIGN KEY (`cp`) REFERENCES `codigos_postales` (`cp`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_Direccion_Cliente1` FOREIGN KEY (`idCliente`) REFERENCES `cliente` (`idCliente`),
+  CONSTRAINT `fk_Direccion_codigos_postales1` FOREIGN KEY (`cp`) REFERENCES `codigos_postales` (`cp`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -114,7 +112,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `envio`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `envio` (
   `idEnvio` int(11) NOT NULL AUTO_INCREMENT,
   `idDireccion` int(11) NOT NULL,
@@ -124,8 +122,8 @@ CREATE TABLE `envio` (
   UNIQUE KEY `idEnvio_UNIQUE` (`idEnvio`),
   KEY `fk_Envio_Direccion1_idx` (`idDireccion`),
   KEY `fk_Envio_Reg_compra1_idx` (`idReg_compra`),
-  CONSTRAINT `fk_Envio_Direccion1` FOREIGN KEY (`idDireccion`) REFERENCES `direccion` (`idDireccion`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Envio_Reg_compra1` FOREIGN KEY (`idReg_compra`) REFERENCES `reg_compra` (`idReg_compra`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_Envio_Direccion1` FOREIGN KEY (`idDireccion`) REFERENCES `direccion` (`idDireccion`),
+  CONSTRAINT `fk_Envio_Reg_compra1` FOREIGN KEY (`idReg_compra`) REFERENCES `reg_compra` (`idReg_compra`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -144,7 +142,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `loginencri`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `loginencri` (
   `idLogin` int(11) NOT NULL AUTO_INCREMENT,
   `correo` varchar(45) NOT NULL,
@@ -170,7 +168,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `m_pago`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `m_pago` (
   `idM_Pago` int(11) NOT NULL AUTO_INCREMENT,
   `Form_pago` varchar(45) NOT NULL,
@@ -195,7 +193,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `oferta`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `oferta` (
   `idOferta` int(11) NOT NULL AUTO_INCREMENT,
   `idVideojuego` int(11) NOT NULL,
@@ -205,7 +203,7 @@ CREATE TABLE `oferta` (
   PRIMARY KEY (`idOferta`),
   UNIQUE KEY `idOferta_UNIQUE` (`idOferta`),
   KEY `fk_Oferta_Videojuego1_idx` (`idVideojuego`),
-  CONSTRAINT `fk_Oferta_Videojuego1` FOREIGN KEY (`idVideojuego`) REFERENCES `videojuego` (`idVideojuego`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_Oferta_Videojuego1` FOREIGN KEY (`idVideojuego`) REFERENCES `videojuego` (`idVideojuego`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -224,7 +222,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `pago`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `pago` (
   `idPago` int(11) NOT NULL AUTO_INCREMENT,
   `idM_Pago` int(11) NOT NULL,
@@ -233,8 +231,8 @@ CREATE TABLE `pago` (
   UNIQUE KEY `idPago_UNIQUE` (`idPago`),
   KEY `fk_Pago_M_Pago1_idx` (`idM_Pago`),
   KEY `fk_Pago_Oferta1_idx` (`idOferta`),
-  CONSTRAINT `fk_Pago_M_Pago1` FOREIGN KEY (`idM_Pago`) REFERENCES `m_pago` (`idM_Pago`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Pago_Oferta1` FOREIGN KEY (`idOferta`) REFERENCES `oferta` (`idOferta`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_Pago_M_Pago1` FOREIGN KEY (`idM_Pago`) REFERENCES `m_pago` (`idM_Pago`),
+  CONSTRAINT `fk_Pago_Oferta1` FOREIGN KEY (`idOferta`) REFERENCES `oferta` (`idOferta`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -253,7 +251,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `reg_compra`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `reg_compra` (
   `idReg_compra` int(11) NOT NULL AUTO_INCREMENT,
   `idCliente` int(11) NOT NULL,
@@ -267,8 +265,8 @@ CREATE TABLE `reg_compra` (
   UNIQUE KEY `idReg_compra_UNIQUE` (`idReg_compra`),
   KEY `fk_Reg_compra_Cliente1_idx` (`idCliente`),
   KEY `fk_Reg_compra_Pago1_idx` (`idPago`),
-  CONSTRAINT `fk_Reg_compra_Cliente1` FOREIGN KEY (`idCliente`) REFERENCES `cliente` (`idCliente`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Reg_compra_Pago1` FOREIGN KEY (`idPago`) REFERENCES `pago` (`idPago`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_Reg_compra_Cliente1` FOREIGN KEY (`idCliente`) REFERENCES `cliente` (`idCliente`),
+  CONSTRAINT `fk_Reg_compra_Pago1` FOREIGN KEY (`idPago`) REFERENCES `pago` (`idPago`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -287,7 +285,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `videojuego`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `videojuego` (
   `idVideojuego` int(11) NOT NULL AUTO_INCREMENT,
   `Genero` varchar(45) NOT NULL,
@@ -321,4 +319,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-04-19 20:04:55
+-- Dump completed on 2019-11-24 14:03:06
